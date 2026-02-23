@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>yay</title>
+  <style>
+    body {
+      background-color: #1e3d59;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      background-color: #3a6ea5;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 350px;
+    }
+    input[type="text"], input[type="number"], textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      width: 90%;
+    }
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #0f4c75;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3282b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="formContainer">
+    <h1>Welcome!</h1>
+    <p>Please enter your name:</p>
+    <input type="text" id="nameInput" placeholder="Your name here">
+    <br>
+    <button onclick="submitName()">Submit</button>
+  </div>
+
+  <script>
+    function submitName() {
+      const name = document.getElementById("nameInput").value;
+      if (name.trim() !== "") {
+        document.getElementById("formContainer").innerHTML = `
+          <h1>Hello, ${name}!</h1>
+          <p>Now, please enter your age:</p>
+          <input type="number" id="ageInput" placeholder="Your age">
+          <br>
+          <button onclick="submitAge('${name}')">Submit</button>
+        `;
+      } else {
+        alert("Please enter a valid name.");
+      }
+    }
+
+    function submitAge(name) {
+      const age = document.getElementById("ageInput").value;
+      if (age.trim() !== "" && !isNaN(age)) {
+        let message = "";
+        const ageNum = parseInt(age);
+
+        if (ageNum < 16) {
+          message = `<p>You’re young, ${name}! 🌟</p>
+                     <blockquote>"Life is not a race. Enjoy the journey."</blockquote>`;
+        } else if (ageNum >= 16 && ageNum < 23) {
+          message = `<p>Damn, you’re old, ${name}! 😅</p>
+                     <blockquote>"Every stage of life has its lessons — embrace them."</blockquote>`;
+        } else {
+          message = `<p>You’re doing well, ${name}! 🌼</p>
+                     <blockquote>"Keep going, you’re on the right path."</blockquote>`;
+        }
+
+        document.getElementById("formContainer").innerHTML = `
+          <h1>Nice to meet you, ${name}!</h1>
+          ${message}
+          <p>Want to rant about life? Go ahead:</p>
+          <textarea id="rantBox" placeholder="Type your thoughts here..."></textarea>
+          <br>
+          <button onclick="submitRant('${name}')">Share</button>
+        `;
+      } else {
+        alert("Please enter a valid age.");
+      }
+    }
+
+    function submitRant(name) {
+      const rant = document.getElementById("rantBox").value;
+      if (rant.trim() !== "") {
+        document.getElementById("formContainer").innerHTML = `
+          <h1>Thanks for sharing, ${name}!</h1>
+          <p>Your thoughts:</p>
+          <blockquote>${rant}</blockquote>
+          <p>🌟 Remember: expressing yourself is powerful, and you’re doing great.</p>
+        `;
+      } else {
+        alert("Please write something before sharing.");
+      }
+    }
+  </script>
+</body>
+</html>
